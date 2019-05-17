@@ -158,4 +158,5 @@ app.listen(port,()=>{
     console.log('Server running');
     console.log(port);
     console.log(config.DATABASE);
+    console.log(config.SECRET);
 });
