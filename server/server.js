@@ -153,13 +153,14 @@ app.delete('/api/delete_book',(req,res)=>{
     });
 })
 
+/*
 if(process.env.NODE_ENV === 'production'){
     console.log("We are in production");
     const path = require('path');
     app.get('/*',(req,res)=>{
         res.sendFile(path.resolve(__dirname,'../client','build','index.html'));
     });
-}
+}*/
 
 
 const port = process.env.PORT || 3001;
