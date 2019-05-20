@@ -38,7 +38,7 @@ class Header extends Component{
                 </Link>
                 <div className="guess">
                     <span>If you don't have account use this one: &nbsp;&nbsp;&nbsp; </span>
-                    <span><b> username:</b> guess , <b>password:</b> 1234</span>
+                    <span><b> username:</b> admin@admin.com , <b>password:</b> 1234</span>
                 </div>
             </header>
         );
