@@ -128,6 +128,15 @@ export function clearBook(){
 
 
 /*========= USER ===========*/
+export function updateUser({name,lastname,email}){
+    console.log("name "+name+" "+lastname+" "+email)
+    const request = axios.post('/api/updateuser',{name,lastname,email})
+                .then(response =>  response.data)
+    return {
+        type:'USER_UPDATE',
+        payload:request
+    }
+}
 
 export function loginUser({email,password}){
     const request = axios.post('/api/login',{email,password})

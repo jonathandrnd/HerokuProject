@@ -20,6 +20,13 @@ a:focus {
     padding: 10px;
 }
 
+.guess{
+    background: white;
+    font-size: 12px;
+    margin: auto;
+    color: red;
+}
+
 header {
     padding-top: 5px;
     background: #00BCD4;

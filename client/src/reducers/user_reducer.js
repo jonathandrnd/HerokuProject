@@ -1,5 +1,7 @@
 export default function(state={},action){
     switch(action.type){
+        case 'USER_UPDATE':
+            return {...state,updateuser:action.payload}
         case 'USER_LOGIN':
             return {...state,login:action.payload}
         case 'USER_AUTH':

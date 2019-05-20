@@ -2,8 +2,11 @@ const express = require('express');
 const bodyParse = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const formidableMiddleware = require('formidable');
 const config = require('./config/config').get(process.env.NODE_ENV);
 const app = express();
+var cloudinary = require('cloudinary');
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DATABASE);
@@ -12,19 +15,46 @@ const {User} = require('./models/user');
 const {Book} = require('./models/book');
 const {auth} = require('./middleware/auth') 
 
-app.use(bodyParse.json());
+app.use(bodyParse());
 app.use(cookieParser());
 
 app.use(express.static('client/build'));
 
 // GET //
+//get image
+/*
+app.get('/api/myImage', function(req, res) {
+    //<img src='http://res.cloudinary.com/hpmklpwv3/image/upload/v1558281591/rsczztgxs2uluafg1mbx.png'/>"
+    res.json({
+        photo:req.user.photo
+    });
+  });
+*/
+/*  
+app.post('/api/myImage', function(req, res) {
+    const user = new User(req.body);
+    user.save((err,doc)=>{
+        if(err)return res.json({success:false});
+        res.status(200).json({
+            success:true,
+            user:doc._id
+        })
+    })
+    
+    cloudinary.uploader.upload("dinosaurio.png",
+        function(result) { console.log(result) })
+});
+*/
+
+
 app.get('/api/auth',auth,(req,res)=>{
     res.json({
         isAuth: true,
         id: req.user._id,
         email: req.user.email,
         name: req.user.name,
-        lastname: req.user.lastname
+        lastname: req.user.lastname,
+        photo: req.user.photo
     })
 })
 
@@ -85,6 +115,19 @@ app.get('/api/user_posts',(req,res)=>{
 })
 
 // POST //
+app.post('/api/updatephoto',(req,res)=>{
+    var form = new formidableMiddleware.IncomingForm();
+
+    form.parse(req,function(err, fields, files){
+        cloudinary.uploader.upload(files.image.path,
+            function(result) { 
+                User.findOneAndUpdate({'email':fields.email},{'photo':result.url},(err,user)=>{
+                    if(!user)return res.json({isAuth:false,message:'Auth failed, email not found'});
+                })    
+            })
+        
+    });
+})
 
 app.post('/api/book',(req,res)=>{
     const book= new Book(req.body);
@@ -95,8 +138,6 @@ app.post('/api/book',(req,res)=>{
             bookId: doc._id,
         });
     })
-
-
 })
 
 app.post('/api/register',(req,res)=>{
@@ -134,6 +175,16 @@ app.post('/api/login',(req,res)=>{
 
 // UPDATE //
 
+app.post('/api/updateuser',(req,res)=>{
+    User.findOneAndUpdate({'email':req.body.email},req.body,{new:true},(err,doc)=>{
+        if(err)return res.status(400).send(err);
+        res.json({
+            succes:true,
+            doc
+        })
+    });
+})
+
 app.post('/api/book_update',(req,res)=>{
     Book.findByIdAndUpdate(req.body._id,req.body,{new:true},(err,doc)=>{
         if(err)return res.status(400).send(err);
@@ -161,11 +212,8 @@ if(process.env.NODE_ENV === 'production'){
     });
 }
 
-
 const port = process.env.PORT || 3001;
 app.listen(port,()=>{
     console.log('Server running');
     console.log("Port: "+port);
-    console.log("Database: "+config.DATABASE);
-    console.log("Secret: "+config.SECRET);
 });

@@ -22,11 +22,15 @@ const userSchema = mongoose.Schema({
     },
     lastname:{
         type: String,
-        maxlengtjh: 100
+        maxlength: 100
     },
     role:{
         type: Number,
         default: 0
+    },
+    photo:{
+        type: String,
+        maxlength: 500
     },
     token:{
         type: String

@@ -53,7 +53,7 @@ class Register extends PureComponent {
             name:this.state.name,
             lastname:this.state.lastname
         },this.props.user.users))
-        
+        this.props.dispatch(getUsers())
     }
 
     showUsers = (user) =>(
@@ -71,6 +71,8 @@ class Register extends PureComponent {
 
     render() {
         let user = this.props.user;
+        console.log("user");
+        console.log(user);
         return (
             <div className="rl_container">
                 <form onSubmit={this.submitForm}>

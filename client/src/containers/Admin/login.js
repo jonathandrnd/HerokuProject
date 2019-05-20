@@ -25,7 +25,6 @@ class Login extends Component {
         }
     }
 
-
     submitForm = (e) =>{
         e.preventDefault();
         this.props.dispatch(loginUser(this.state))

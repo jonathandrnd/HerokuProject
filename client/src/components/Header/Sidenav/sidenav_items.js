@@ -13,21 +13,21 @@ const SidenavItems = (props)=>{
         },
         {
             type:'navItem',
-            icon:'file-text-o',
+            icon:'user',
             text:'My Profile',
             link:'/user',
             restricted: false
         },
         {
             type:'navItem',
-            icon:'file-text-o',
+            icon:'users',
             text:'Add Admins',
             link:'/user/register',
             restricted: false
         },
         {
             type:'navItem',
-            icon:'fa-sign-in',
+            icon:'sign-in',
             text:'Login',
             link:'/login',
             restricted: false
@@ -41,14 +41,14 @@ const SidenavItems = (props)=>{
         },
         {
             type:'navItem',
-            icon:'file-text-o',
+            icon:'files-o',
             text:'Add reviews',
             link:'/user/add',
             restricted: false
         },
         {
             type:'navItem',
-            icon:'fa-sign.out',
+            icon:'sign-out',
             text:'Logout',
             link:'/user/logout',
             restricted: false

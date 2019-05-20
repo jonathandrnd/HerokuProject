@@ -12,7 +12,9 @@ class Header extends Component{
         this.setState({showNav:false});
     }
 
+
     render(){
+
         return (
             <header>
                 <div className="open_nav">
@@ -32,8 +34,12 @@ class Header extends Component{
                 </Nav>
 
                 <Link to="/" className="logo">
-                    The Book Shelf
+                    My Library
                 </Link>
+                <div className="guess">
+                    <span>If you don't have account use this one: &nbsp;&nbsp;&nbsp; </span>
+                    <span><b> username:</b> guess , <b>password:</b> 1234</span>
+                </div>
             </header>
         );
     }
